@@ -13,3 +13,4 @@ module.exports = {
   NODEMAILER_EMAIL_PASSW: process.env.NODEMAILER_EMAIL_PASSW,
   SESSION_EXP_TIME: Number(process.env.SESSION_EXP_TIME) || 60000,
 };
+
