@@ -53,6 +53,7 @@ export const handleCart = (urlPath) => {
 
     const eventHandler = async (event) => {
       if (event.target.id === "removeAll") {
+        console.log("DELETE");
         await fetch("/api/carrito", {
           method: "DELETE",
         }).then((res) => (window.location.href = "/carrito"));
@@ -60,6 +61,7 @@ export const handleCart = (urlPath) => {
       }
 
       if (event.target.id === "checkOut") {
+        console.log("POST");
         const total = document.getElementById("totalOrder").innerHTML;
         const productosStorage = JSON.parse(localStorage.getItem("carrito"));
         productosStorage.total = Number(total);
@@ -69,18 +71,27 @@ export const handleCart = (urlPath) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(productosStorage),
-        }).then(async (res) => {
+        }        
+        ).then(async (res) => {
+          console.log("DELETE");
           await fetch("/api/carrito", {
             method: "DELETE",
           }).then((res) => {
-            localStorage.removeItem("carrito");
-            Swal.fire(
-              "Genial",
-              "Tu pedido se ha generado correctamente",
-              "success"
-            );
+           localStorage.removeItem("carrito");                      
+            Swal.fire({
+              title: '<strong>Tu orden se genero con exito</strong>',
+              icon: 'success',
+              html:
+                '<b>Gracias por elegirnos !</b><p>Recibiras tu orden por correo y whatsapp</p>',
+              focusConfirm: false,
+              confirmButtonText:
+                '<a href="/" class="text-decoration-none text-white mt-4">OK</a>',
+              confirmButtonAriaLabel: 'Genial!',
+              allowOutsideClick: ''
+            })  
           });
         });
+        
       }
     };
 

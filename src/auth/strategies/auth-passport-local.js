@@ -1,7 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const { validPassword, createPassword } = require("../../utils/passwordUtil");
-
+const logger = require("../../utils/logger");
 
 module.exports = (usersDao) => {
   const customFields = {
@@ -21,7 +21,7 @@ module.exports = (usersDao) => {
       if (isValid) {
         return done(null, user);
       } else {
-        console.log("Contraseña incorrecta");
+        logger.info("Contraseña incorrecta");
         return done(null, false);
       }
     } catch (err) {
@@ -36,7 +36,7 @@ module.exports = (usersDao) => {
         return done(
           null,
           false,
-          console.log("mensaje:", "Hay un usuario registrado con su mail")
+          logger.info("mensaje:", "Hay un usuario registrado con su mail")
         );
       } else {
         const { firstName, lastName, email, age, phone, address } = req.body;   

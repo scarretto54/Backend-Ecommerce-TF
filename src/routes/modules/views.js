@@ -6,12 +6,12 @@ const router = require("express").Router();
 
 // --------------------------Product Views---------------------------//
 module.exports = (viewController) => {
-  router.get("/", isAuthenticated, (req, res) => {
+  router.get("/", (req, res) => {
     res.redirect("/productos");
     return;
   });
 
-  router.get("/productos", isAuthenticated, (req, res, next) =>
+  router.get("/productos", (req, res, next) =>
     viewController.getAllProducts(req, res, next)
   );
 
@@ -20,8 +20,7 @@ module.exports = (viewController) => {
   );
 
   router.get(
-    "/productos/categoria/:categoria",
-    isAuthenticated,
+    "/productos/categoria/:categoria",    
     (req, res, next) => viewController.getProductByCategory(req, res, next)
   );
 

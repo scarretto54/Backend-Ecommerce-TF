@@ -1,3 +1,5 @@
+const logger = require("../../utils/logger");
+
 module.exports = class {
   constructor(chatDao) {
     this.chatDao = chatDao;
@@ -6,7 +8,7 @@ module.exports = class {
     try {
       return await this.chatDao.getAllMessages();
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -15,7 +17,7 @@ module.exports = class {
       const newMessage = await this.chatDao.saveMessage(message);
       return newMessage;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -24,7 +26,7 @@ module.exports = class {
       const messages = await this.chatDao.getAllMessagesByEmail(email);
       return messages;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 };

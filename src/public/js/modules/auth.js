@@ -33,6 +33,6 @@ export const handleLoginLogOut = (urlPath) => {
   }
 
   if (urlPath === "/logout") {
-    setTimeout(() => (window.location.href = "/login"), 2500);
+    setTimeout(() => (window.location.href = "/login"), 1500);
   }
 };

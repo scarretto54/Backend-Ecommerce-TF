@@ -5,8 +5,8 @@ const logger = require("../utils/logger");
 
 getConnection()
   .then((message) => {
-    console.log(message);
-    server.listen(PORT, () => console.info(`Servidor en el puerto ${PORT}`));
-    server.on("error", (error) => console.error(error));
+    logger.info(message);
+    server.listen(PORT, () => logger.info(`Servidor en el puerto ${PORT}`));
+    server.on("error", (error) => logger.error(error));
   })
-  .catch((error) => console.log(error));
+  .catch((error) => logger.error(error));

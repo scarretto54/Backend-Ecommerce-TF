@@ -1,3 +1,4 @@
+const logger = require("../../utils/logger");
 module.exports = class {
   constructor(chatService) {
     this.chatService = chatService;
@@ -9,7 +10,7 @@ module.exports = class {
       //Emitir nuevo mensaje al cliente
       socket.emit("newMessage", messages);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -18,7 +19,7 @@ module.exports = class {
       const allMessages = await this.chatService.getAllMessages();
       return allMessages;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 

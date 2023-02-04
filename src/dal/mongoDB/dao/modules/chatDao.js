@@ -1,3 +1,4 @@
+const logger = require("../../../../utils/logger");
 module.exports = class {
   constructor(model) {
     this.model = model;
@@ -7,7 +8,7 @@ module.exports = class {
       const messages = await this.model.find({}).lean();
       return messages;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -16,7 +17,7 @@ module.exports = class {
       const newMessage = await this.model.create(message);
       return newMessage;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -25,7 +26,7 @@ module.exports = class {
       const messages = await this.model.find({ "author.email": email }).lean();
       return messages;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 };

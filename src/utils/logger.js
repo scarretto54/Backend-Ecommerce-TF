@@ -12,8 +12,7 @@ const transports = [
     colorize: true,
     format: winston.format.combine(
       winston.format.colorize(),
-      winston.format.simple()
-    ),
+      winston.format.simple()),
   }),
   new winston.transports.File({
     level: "warn",

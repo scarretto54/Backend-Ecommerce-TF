@@ -9,6 +9,7 @@ const productSchema = new Schema(
     imageURL: String,
     price: Number,
     stock: Number,
+    cod: Number,
   },
   { collection: "productos" }
 );

@@ -9,12 +9,21 @@ module.exports = class {
   }
   // ------------------- Product Controllers -------------/
   async getAllProducts(req, res, next) {
-    try {
-      const userInfo = req.user.toJSON();
+    try {      
+      if (req.user === undefined){
+      const  userInfo = null    
       let listaDeProductos = await this.productsService.getAllProducts();
 
-      res.render("pages/productos", { listaDeProductos, userInfo });
+      res.render("pages/productos", { listaDeProductos, userInfo: false });
       return;
+      }
+      const  userInfo = req.user.toJSON()
+      
+      let listaDeProductos = await this.productsService.getAllProducts();
+
+      res.render("pages/productos", { listaDeProductos, userInfo});
+      return;
+
     } catch (error) {
       logger.error(`Error: ${error}`);
       next(error);
@@ -23,7 +32,20 @@ module.exports = class {
 
   async getProduct(req, res, next) {
     try {
-      const userInfo = req.user.toJSON();
+      
+      if (req.user === undefined){
+        userInfo = null
+        let listaDeProductos = await this.productsService.getProduct(
+          req.params.id
+        );
+  
+        res.render("pages/productoDetails", {
+          listaDeProductos: listaDeProductos,
+          userInfo: false
+        });
+        return;
+      }
+      const userInfo = req.user.toJSON()
       let listaDeProductos = await this.productsService.getProduct(
         req.params.id
       );
@@ -37,12 +59,22 @@ module.exports = class {
   }
 
   async getProductByCategory(req, res, next) {
-    try {
-      const userInfo = req.user.toJSON();
+    try {      
+      if (req.user === undefined){        
+        const userInfo = null 
+        let listaDeProductos = await this.productsService.getProductByCategory(
+          req.params.categoria
+        );  
+        res.render("pages/productos", {
+          listaDeProductos,
+          userInfo: false 
+        });
+        return;
+      }
+      const userInfo = req.user.toJSON()
       let listaDeProductos = await this.productsService.getProductByCategory(
         req.params.categoria
       );
-
       res.render("pages/productos", {
         listaDeProductos,
         userInfo,

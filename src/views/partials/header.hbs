@@ -3,8 +3,7 @@
     <div class="container" style="padding:0px">
       <a class="navbar-brand" href="/productos">
         <img src="/images/pages/logo.png" width="150"  alt="" />
-      </a>
-      {{#if userInfo}}
+      </a>      
         <button
           class="navbar-toggler"
           type="button"
@@ -32,6 +31,7 @@
             </li>
           </ul>
         </div>
+    {{#if userInfo}}
           <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
           <ul class="navbar-nav align-items-center mr-auto">
             <li class="nav-item">   
@@ -50,7 +50,18 @@
         <button class="btn btn-secondary align-items-end"><a class="link-light text-decoration-none"  href="/logout">Salir</a></button>       
     </div>
     {{else}}
-    <h3 class="text-light justify">E-Commerce</h3>
+    <div class="conrainer align-items-center justify-content-end mr-auto">
+            <button class="btn btn-primary mt-4">
+              <a href="/login" class="text-decoration-none text-white mt-4">
+                Iniciar sesion
+              </a>
+            </button>
+            <button class="btn btn-secondary mt-4">
+              <a href="/signup" class="text-decoration-none text-white mt-4">
+              Registrarse
+              </a>
+            </button>
+    </div>    
     {{/if}}
   </nav>
 </header>

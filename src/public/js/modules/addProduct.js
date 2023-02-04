@@ -15,12 +15,18 @@ export const handleAddProduct = (urlPath) => {
           if (!res.ok) {
             throw new Error("Network response was not OK");
           }
-          if (res.ok) {
-            Swal.fire(
-              "¡Genial!",
-              "El producto se ha creado correctamente",
-              "success"
-            );
+          if (res.ok) {  
+            Swal.fire({
+              title: '<strong>¡Genial!</strong>',
+              icon: 'success',
+              html:
+                '<b>El producto se ha creado correctamente.</p>',
+              focusConfirm: false,
+              confirmButtonText:
+                '<a href="/agregar-productos" class="text-decoration-none text-white mt-4">OK</a>',
+              confirmButtonAriaLabel: 'Genial!',
+              allowOutsideClick: ""
+            });
           }
         });
       } catch (error) {

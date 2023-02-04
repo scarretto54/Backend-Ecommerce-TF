@@ -1,3 +1,5 @@
+const logger = require("../../utils/logger");
+
 module.exports = ordersController = (orderService, notificationService) => ({
   async createOrder(req, res, next) {
     try {
@@ -11,7 +13,7 @@ module.exports = ordersController = (orderService, notificationService) => ({
       await notificationService.alertNewOrder(newOrder);
       res.json(newOrder);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   },
 });

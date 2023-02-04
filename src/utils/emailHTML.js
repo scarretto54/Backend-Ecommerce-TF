@@ -16,7 +16,6 @@ exports.newUserEmailContent = ({
             <li>Apellido: ${last_name}</li>
             <li>Teléfono: ${phone}</li>
             <li>Dirección: ${address}</li>
-
         </ul>
     `;
 };

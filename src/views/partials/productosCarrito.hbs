@@ -2,32 +2,32 @@
   <div class="card glass">
     <div id="cartContainer" class="card-body">
       <h1>Carrito</h1>
-      <hr />
+      <hr>
       <div class="d-flex flex-row justify-content-between">
         <button type="button" id="removeAll" class="btn btn-secondary">
           Remover todos los productos
         </button>
-        <button type="button" id="checkOut" class="btn btn-primary">
-          Enviar pedido
+        <button type="button" id="checkOut" class="btn bolder btn-primary">
+                Enviar Pedido 
         </button>
       </div>
       <hr />
       <div id="productList" class="row row-cols-1">
         <div class="col mb-2">
-          <div class="card h-50 glass p-1">
-            <h2>Total a pagar: $<span id="totalOrder">{{total}}</span></h2>
+          <div class="card h-100 glass p-1 bg-success">
+            <h2 class="text-white text-center">Total Orden: $<span id="totalOrder">{{total}}</span></h2>
           </div>
         </div>
       </div>
       <div id="productList" class="container row row-cols-1 ">
         {{#each listaDeProductosEnCarro}}
           <div class="col mb-2">
-            <div class=" card h-50 glass">
+            <div class=" card h-100 glass">
               <div class="row g-0">
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <img
                     src="{{this.imageURL}}"
-                    height="250px"
+                    height="150px"                    
                     class="card-img-top"
                     alt="{{this.description}}"
                   />
@@ -37,22 +37,19 @@
                     <p class="mb-0">
                       <span class="badge bg-secondary">{{this.category}} </span>
                     </p>
-                    <h5 class="card-title mt-2">{{this.name}}</h5>
-                    <p class="card-text">{{this.description}}</p>
-                    <div class="row justify-content-between">
-                      <div class="col">
-                        <p class="mb-0">
+                    <h5 class="card-title mt-1">{{this.name}}</h5>
+                    <div class="row justify-content-start">
+                      <div class="">
+                        <span class="mb-0 text-center">
                           Precio
-                        </p>
-                        <span class="badge bg-info">${{this.price}} </span>
+                        </span>
+                        <span class="mb-2 text-start"><strong>${{this.price}}</strong> </span>
                       </div>
                       <div class="col">
-                        <p class="mb-0">
-                          Cantidad
-                        </p>
-                        <span class="badge bg-danger">
-                          {{this.qty}}
+                        <span class="mb-0">
+                          Stock
                         </span>
+                        <span class="mb-2"><strong>{{this.qty}} U</strong> </span>
                       </div>
                     </div>
                   </div>

@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
     const uniqueSuffix = Date.now();
     cb(
       null,
-      req.body.name.replace(/\s+/g, "") +
+      req.body.cod + " " + req.body.name.replace(/\s+/g, "") +
         "-" +
         uniqueSuffix +
         path.extname(file.originalname)
@@ -18,5 +18,3 @@ const storage = multer.diskStorage({
 });
 
 module.exports = multer({ storage: storage });
-
-// req.body.name.replace(/\s+/g, "")

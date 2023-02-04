@@ -28,6 +28,7 @@ export const handleChat = (urlPath) => {
       }
     });
 
+   
     socket.on("newMessage", (msg) => {
       let item = document.createElement("div");
       const body = document.createTextNode(msg.body).wholeText;

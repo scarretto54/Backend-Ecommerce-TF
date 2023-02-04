@@ -1,3 +1,4 @@
+const logger = require("../../../../utils/logger");
 module.exports = class {
   constructor(model) {
     this.model = model;
@@ -8,7 +9,7 @@ module.exports = class {
       const user = await this.model.findById(id);
       return user;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -17,7 +18,7 @@ module.exports = class {
       const user = await this.model.findOne({ email: email }).lean();
       return user;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -26,7 +27,7 @@ module.exports = class {
       const newCreatedUser = await this.model.create(userInfo);
       return newCreatedUser;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 };

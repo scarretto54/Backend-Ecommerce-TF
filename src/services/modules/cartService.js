@@ -25,7 +25,10 @@ module.exports = class {
   async updateCart(id, newProduct) {
     try {
       const cartUpdated = await this.cartDao.updateCart(id, newProduct);
-      return cartUpdated;
+      if (cartUpdated !== undefined) {
+        logger.info(`Carrito con id ${id} modificado con éxito`);
+        return cartUpdated;}
+        logger.warn(`Carrito con id ${id} no encontrado`);
     } catch (error) {
       logger.error(error);
     }
@@ -34,7 +37,10 @@ module.exports = class {
   async deleteCart(user) {
     try {
       const cartToDelete = await this.cartDao.deleteCart(user);
-      return cartToDelete;
+      if (cartToDelete !== undefined) {
+        logger.info(`Carrito del usuario ${user} eliminado con éxito`);
+        return cartToDelete;}
+        logger.warn(`Carrito del usuario ${user} no encontrado`);
     } catch (error) {
       logger.error(error);
     }

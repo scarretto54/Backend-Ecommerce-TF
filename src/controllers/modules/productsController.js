@@ -28,7 +28,13 @@ module.exports = class {
   async getProduct(req, res, next) {
     try {
       const oneProduct = await this.productsService.getProduct(req.params.id);
-      return res.json(oneProduct);
+      if (oneProduct !== undefined) {
+        logger.info(`Producto con id ${req.params.id} encontrado con éxito`);
+        return res.json(oneProduct);
+      } else {
+        logger.warn(`Producto con id ${req.params.id} no encontrado`);
+        res.json({ error: "Producto no encontrado" });
+      }      
     } catch (error) {
       logger.error(`Error: ${error}`);
       next(error);
@@ -54,7 +60,14 @@ module.exports = class {
         params.id,
         body
       );
+      updateProduct = await productsModel.updateById(id, updateProduct);
+    if (updateProduct !== undefined) {
+      logger.info(`Producto con id ${params.id} actualizado con éxito`);
       res.json(updateProduct);
+    } else {
+      logger.warn(`Producto con id ${params.id} no encontrado`);
+      res.json({ error: "Producto no encontrado" });
+    }      
     } catch (error) {
       logger.error(`Error: ${error}`);
       next(error);
@@ -66,7 +79,13 @@ module.exports = class {
       const productDeleted = await this.productsService.deleteProduct(
         req.params.id
       );
-      res.json(productDeleted);
+      if (productDeleted !== undefined) {
+        logger.info(`Producto con id ${req.params.id} borrado con éxito`);
+        res.json(productDeleted);
+      } else {
+        logger.warn(`Producto con id ${req.params.id} no encontrado`);
+        res.json({ error: "Producto no encontrado" });
+      }
     } catch (error) {
       logger.error(`Error: ${error}`);
       next(error);

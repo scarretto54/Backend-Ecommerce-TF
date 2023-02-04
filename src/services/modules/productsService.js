@@ -1,3 +1,5 @@
+const logger = require("../../utils/logger");
+
 module.exports = class {
   constructor(productDao) {
     this.productDao = productDao;
@@ -5,9 +7,11 @@ module.exports = class {
   async getProduct(id) {
     try {
       const Product = await this.productDao.getProduct(id);
-      return Product;
+      if (Product !== undefined) {
+      return Product;}
+      logger.warn(`Producto con id ${id} no encontrado`);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -16,7 +20,7 @@ module.exports = class {
       const Product = await this.productDao.getProductByCategory(category);
       return Product;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -25,7 +29,7 @@ module.exports = class {
       const allProducts = await this.productDao.getAllProducts();
       return allProducts;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
   async addProduct(producto) {
@@ -33,7 +37,7 @@ module.exports = class {
       const product = await this.productDao.addProduct(producto);
       return product;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
   async updateProduct(id, productUpdated) {
@@ -42,16 +46,23 @@ module.exports = class {
         id,
         productUpdated
       );
-      return productToUpdate;
+      if (productToUpdate !== undefined) {
+        logger.info(`Producto con id ${id} modificado con éxito`);
+        return productToUpdate;}
+        logger.warn(`Producto con id ${id} no encontrado`);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
   async deleteProduct(id) {
     try {
-      return await this.productDao.deleteProduct(id);
+      const productToDelete = await this.productDao.deleteProduct(id);
+      if (productToUpdate !== undefined) {
+        logger.info(`Producto con id ${id} eliminado con éxito`);
+        return productToDelete;}
+        logger.warn(`Producto con id ${id} no encontrado`);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 };

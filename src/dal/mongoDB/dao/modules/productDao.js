@@ -1,3 +1,4 @@
+const logger = require("../../../../utils/logger");
 module.exports = class {
   constructor(model) {
     this.model = model;
@@ -7,7 +8,7 @@ module.exports = class {
       const Product = await this.model.findById(id).lean();
       return Product;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -16,7 +17,7 @@ module.exports = class {
       const Product = await this.model.find({ category: category }).lean();
       return Product;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 
@@ -25,7 +26,7 @@ module.exports = class {
       const allProducts = await this.model.find().lean();
       return allProducts;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
   async addProduct(producto) {
@@ -33,7 +34,7 @@ module.exports = class {
       const product = await this.model.create(producto);
       return product;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
   async updateProduct(id, productUpdated) {
@@ -45,14 +46,14 @@ module.exports = class {
       );
       return productToUpdate;
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
   async deleteProduct(id) {
     try {
       await this.model.findByIdAndDelete(id);
     } catch (error) {
-      console.log(error);
+      logger.error(error);
     }
   }
 };
