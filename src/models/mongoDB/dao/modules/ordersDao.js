@@ -1,4 +1,6 @@
-const { cartDTO } = require("../../dto/cart.dto");
+const { logger } = require("../../../../logger/index");
+const itemQty = require("../../../../utils/itemQty");
+const { ordersDto } = require("../../dto/index");
 
 module.exports = class {
   constructor(model) {
@@ -6,11 +8,11 @@ module.exports = class {
   }
 
   async createOrder(order) {
-    const products = cartDTO(order);
+    const products = itemQty.itemQty(order);
     order.products = products;
     const newOrder = await this.model.create(order);
     await newOrder.populate(["user"]);
-    return newOrder;
+    return new ordersDto(newOrder);
   }
 
   async getNumOrders() {

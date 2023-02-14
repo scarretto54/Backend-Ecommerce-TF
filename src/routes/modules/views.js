@@ -1,7 +1,6 @@
 const res = require("express/lib/response");
 const isAuthenticated = require("../../middleware/isAuthenticated");
 const { chatService } = require("../../services");
-const logger = require("../../utils/logger");
 const router = require("express").Router();
 
 // --------------------------Product Views---------------------------//
@@ -41,31 +40,35 @@ module.exports = (viewController) => {
   // --------------- Other views------------------------------/
 
   router.get("/entorno", isAuthenticated, (req, res) => {
-    const userInfo = req.user.toJSON();
+    const userInfo = req.user;     
     const {
       PORT,
       NODE_ENV,
       MONGO_URI,
-      USERNAME_GMAIL,
+      MAIL_GMAIL,
+      NODEMAILER_EMAIL,
       SESSION_EXP_TIME,
     } = require("../../config/globals");
+    const notifEmail = NODE_ENV === 'development' ? NODEMAILER_EMAIL : MAIL_GMAIL ;
     const envInfo = {
       PORT,
       NODE_ENV,
       MONGO_URI,
-      USERNAME_GMAIL,
+      MAIL_GMAIL,
+      NODEMAILER_EMAIL,
       SESSION_EXP_TIME,
+      notifEmail,
     };
     res.render("pages/entorno", { envInfo, userInfo });
   });
 
   router.get("/agregar-productos", isAuthenticated, (req, res) => {
-    const userInfo = req.user.toJSON();
+    const userInfo = req.user;
     res.render("pages/adminPanel", { userInfo });
   });
 
   router.get("/perfil", isAuthenticated, (req, res) => {
-    const userInfo = req.user.toJSON();
+    const userInfo = req.user;
     res.render("pages/perfil", { userInfo });
   });
 

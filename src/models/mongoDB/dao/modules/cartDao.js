@@ -1,17 +1,22 @@
-const logger = require("../../../../utils/logger");
-const { cartDTO } = require("../../dto/cart.dto");
+const { logger } = require("../../../../logger/index");
+const itemQty = require("../../../../utils/itemQty");
+const { cartDto } = require("../../dto/index");
 module.exports = class {
   constructor(model) {
     this.model = model;
   }
   async getAllCartItems(userId) {
     try {
-      const allItems = await this.model
+      let allItems = await this.model
         .findOne({ userId })
-        .populate(["products"])
+        // .populate(["products"])
         .lean();
+       if (allItems !== null ){
+        allItems = itemQty.itemQty(allItems)
+        return allItems;
+      }       
 
-      return cartDTO(allItems);
+      return allItems;
     } catch (error) {
       logger.error(error);
     }
@@ -21,7 +26,7 @@ module.exports = class {
     try {
       const newCart = await this.model.create(cart);
       await newCart.populate(["products"]);
-      return newCart;
+      return new cartDto(newCart);
     } catch (error) {
       logger.error(error);
     }
@@ -39,7 +44,7 @@ module.exports = class {
         )
         .populate(["products"]);
 
-      return cartUpdated;
+      return new cartDto(cartUpdated);
     } catch (error) {
       logger.error(error);
     }

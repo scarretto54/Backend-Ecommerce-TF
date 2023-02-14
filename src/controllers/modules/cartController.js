@@ -1,4 +1,4 @@
-const logger = require("../../utils/logger");
+const { logger } = require("../../logger/index");
 module.exports = class {
   constructor(cartService, notificationService) {
     this.cartService = cartService;
@@ -7,7 +7,7 @@ module.exports = class {
   async getCartByUserId(req, res, next) {
     try {
       const { _id } = req.user;
-      const shoppingCart = await this.cartService.getAllCartItems(_id);
+      const shoppingCart = await this.cartService.getAllCartItems(_id);          
       return shoppingCart;
     } catch (error) {
       logger.error(error);
